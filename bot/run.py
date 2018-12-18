@@ -2,8 +2,8 @@ import time
 from bot.cybouzu_request_manager import CybouzuRequestManager
 from bot.event_notifier import EventNotifier
 
-INTERVAL_SEC = 10
-NOTIFY_BUFFER_SEC = 60 * 5
+INTERVAL_SEC = 60
+NOTIFY_BUFFER_SEC = 60 * 5  # 何分前にイベントを通知するか（ただし最大 INTERVAL_SEC 分ずれます）
 
 
 def execute() -> None:
