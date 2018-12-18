@@ -21,7 +21,8 @@ class EventNotifier:
         self._regist_id(event['id'])
 
     def _format(self, event: Dict) -> str:
-        return '{subject} - {facility} ({start}〜)'.format(
+        return '<@{user_name}> {subject} - {facility} ({start}〜)'.format(
+            user_name=self._config['user_name'],
             start=event['start']['dateTime'],
             subject=event['subject'],
             facility=event['facilities'][0]['name'] if event['facilities'] else '',
@@ -30,6 +31,7 @@ class EventNotifier:
     def _post_slack(self, text: str) -> None:
         payload = {
             'text': text,
+            'channel': '#{}'.format(self._config['channel']),
         }
         requests.post(self._config['webhook'], data=json.dumps(payload))
 
