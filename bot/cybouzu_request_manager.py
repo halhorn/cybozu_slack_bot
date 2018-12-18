@@ -19,6 +19,12 @@ class CybouzuRequestManager:
         with open(file_path) as f:
             return yaml.load(f)
 
+    def get_event_list(self, notify_buffer_sec: int, limit: int = 100):
+        result = self.request(notify_buffer_sec, limit)
+        event_list = result['events']
+        event_list = [event for event in event_list if event['eventType'] != 'ALL_DAY']
+        return event_list
+
     def request(self, notify_buffer_sec: int, limit: int = 100):
         auth = base64.b64encode('{id}:{pass}'.format(**self._config).encode('utf-8')).decode('utf-8')
         url = URL.format(**self._config)
