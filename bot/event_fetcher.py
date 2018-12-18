@@ -9,7 +9,7 @@ SECRET_PATH = 'secret/cybouzu.yml'
 URL = 'https://{sub_domain}.cybozu.com:443/g/api/v1/schedule/events'
 
 
-class CybouzuRequestManager:
+class EventFetcher:
     def __init__(self):
         self._config = self._load_config()
 
