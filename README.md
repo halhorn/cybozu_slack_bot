@@ -9,6 +9,7 @@ git@github.com:halhorn/cybouzu_slack_bot.git
 cd cybouzu_slack_bot
 cp -fr secret.sample secret
 emacs secret/cybouzu.yml
+emacs secret/slack.yml
 ```
 
 # Run
