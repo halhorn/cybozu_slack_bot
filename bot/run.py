@@ -1,4 +1,5 @@
 import time
+import traceback
 from bot.event_fetcher import EventFetcher
 from bot.event_notifier import EventNotifier
 
@@ -18,9 +19,8 @@ class Runner:
             except KeyboardInterrupt:
                 print('keyboard Interrupt.')
                 return
-            except Exception as e:
-                print('ERROR')
-                print(e)
+            except Exception:
+                traceback.print_exc()
 
             time.sleep(INTERVAL_SEC)
 
