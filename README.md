@@ -5,7 +5,7 @@ Cybouzu Garoon の予定を Slack に通知してくれます。
 
 # Install
 ```
-git@github.com:halhorn/cybouzu_slack_bot.git
+git clone git@github.com:halhorn/cybouzu_slack_bot.git
 cd cybouzu_slack_bot
 cp -fr secret.sample secret
 emacs secret/cybouzu.yml
