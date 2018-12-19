@@ -8,13 +8,14 @@ import requests
 
 SECRET_PATH = 'secret/cybouzu.yml'
 URL = 'https://{sub_domain}.cybozu.com:443/g/api/v1/schedule/events'
+PASS_ENVIRON_NAME = 'CYBOZU_PASS'
 
 
 class EventFetcher:
     def __init__(self):
         self._config = self._load_config()
         if 'pass' not in self._config:
-            self._config['pass'] = os.environ.get('CYBOUZU_PASS')
+            self._config['pass'] = os.environ.get(PASS_ENVIRON_NAME)
         if not self._config.get('pass'):
             raise Exception('pass is not set')
 
