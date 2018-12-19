@@ -15,12 +15,14 @@ class Runner:
         while True:
             try:
                 self._get_event_and_notify()
-                time.sleep(INTERVAL_SEC)
             except KeyboardInterrupt:
                 print('keyboard Interrupt.')
                 return
             except Exception as e:
+                print('ERROR')
                 print(e)
+
+            time.sleep(INTERVAL_SEC)
 
     def _get_event_and_notify(self) -> None:
         event_list = self._event_fetcher.get_event_list(NOTIFY_BUFFER_SEC)

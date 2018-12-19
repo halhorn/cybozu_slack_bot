@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 import base64
 from typing import Any
@@ -26,7 +27,11 @@ class EventFetcher:
         return event_list
 
     def request(self, notify_buffer_sec: int, limit: int = 100):
-        auth = base64.b64encode('{id}:{pass}'.format(**self._config).encode('utf-8')).decode('utf-8')
+        raw_auth = '{}:{}'.format(
+            self._config['id'],
+            os.environ.get('CYBOUZU_PASS') or self._config['pass'],
+        )
+        auth = base64.b64encode(raw_auth.encode('utf-8')).decode('utf-8')
         url = URL.format(**self._config)
         start = datetime.now()
         end = start + timedelta(seconds=notify_buffer_sec)
