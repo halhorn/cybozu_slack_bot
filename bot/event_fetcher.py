@@ -6,7 +6,7 @@ from pathlib import Path
 import yaml
 import requests
 
-SECRET_PATH = 'secret/cybouzu.yml'
+SECRET_PATH = 'secret/cybozu.yml'
 URL = 'https://{sub_domain}.cybozu.com:443/g/api/v1/schedule/events'
 PASS_ENVIRON_NAME = 'CYBOZU_PASS'
 
