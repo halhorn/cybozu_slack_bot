@@ -12,6 +12,8 @@ emacs secret/cybouzu.yml
 emacs secret/slack.yml
 ```
 
+パスワードを直接ファイルに書かないで環境変数 `CYBOUZU_PASS` に入れても動きます。
+
 # Run
 ```
 cd cybouzu_slack_bot
