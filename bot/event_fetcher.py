@@ -13,6 +13,10 @@ URL = 'https://{sub_domain}.cybozu.com:443/g/api/v1/schedule/events'
 class EventFetcher:
     def __init__(self):
         self._config = self._load_config()
+        if 'pass' not in self._config:
+            self._config['pass'] = os.environ.get('CYBOUZU_PASS')
+        if not self._config.get('pass'):
+            raise Exception('pass is not set')
 
     def _load_config(self, secret_path: str = SECRET_PATH) -> Any:
         root_path = Path(__file__).parents[1]
@@ -27,10 +31,7 @@ class EventFetcher:
         return event_list
 
     def request(self, notify_buffer_sec: int, limit: int = 100):
-        raw_auth = '{}:{}'.format(
-            self._config['id'],
-            os.environ.get('CYBOUZU_PASS') or self._config['pass'],
-        )
+        raw_auth = '{id}:{pass}'.format(**self._config)
         auth = base64.b64encode(raw_auth.encode('utf-8')).decode('utf-8')
         url = URL.format(**self._config)
         start = datetime.now()
