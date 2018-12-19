@@ -61,5 +61,5 @@ class EventFetcher:
 
 
 if __name__ == '__main__':
-    manager = CybouzuRequestManager()
+    manager = EventFetcher()
     print(manager.request(60 * 5))
