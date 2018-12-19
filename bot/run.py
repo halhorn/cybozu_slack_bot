@@ -6,21 +6,30 @@ INTERVAL_SEC = 60
 NOTIFY_BUFFER_SEC = 60 * 5  # 何分前にイベントを通知するか（ただし最大 INTERVAL_SEC 分ずれます）
 
 
-def execute() -> None:
-    i = 0
-    event_list = []
-    event_fetcher = EventFetcher()
-    event_notifier = EventNotifier()
-    while True:
-        event_list = event_fetcher.get_event_list(NOTIFY_BUFFER_SEC)
+class Runner:
+    def __init__(self) -> None:
+        self._event_fetcher = EventFetcher()
+        self._event_notifier = EventNotifier()
+
+    def run(self) -> None:
+        while True:
+            try:
+                self._get_event_and_notify()
+                time.sleep(INTERVAL_SEC)
+            except KeyboardInterrupt:
+                print('keyboard Interrupt.')
+                return
+            except Exception as e:
+                print(e)
+
+    def _get_event_and_notify(self) -> None:
+        event_list = self._event_fetcher.get_event_list(NOTIFY_BUFFER_SEC)
 
         for event in event_list:
-            if event_notifier.was_notified(event):
+            if self._event_notifier.was_notified(event):
                 continue
-            event_notifier.notify(event)
-        time.sleep(INTERVAL_SEC)
-        i += 1
+            self._event_notifier.notify(event)
 
 
 if __name__ == '__main__':
-    execute()
+    Runner().run()
